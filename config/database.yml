@@ -18,13 +18,19 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  host: db
-  username: root
-  password: password
+  host: <%= ENV["RENDER_DB_HOSTNAME"] %>
+  username: picnic_db_user
+  password: <%= ENV["RENDER_DB_PASSWORD"] %>
 
 development:
   <<: *default
+  adapter: postgresql
+  encoding: unicode
   database: my_app_development
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: db
+  username: root
+  password: password
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
@@ -82,6 +88,6 @@ test:
 #
 production:
   <<: *default
-  database: my_app_production
-  username: my_app
-  password: <%= ENV["MY_APP_DATABASE_PASSWORD"] %>
+  database: picnic_db
+  username: picnic_db_user
+  password: <%= ENV["RENDER_DB_PASSWORD"] %>

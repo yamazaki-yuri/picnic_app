@@ -9,6 +9,7 @@ RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - \
 
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
+COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 
 RUN gem install bundler
